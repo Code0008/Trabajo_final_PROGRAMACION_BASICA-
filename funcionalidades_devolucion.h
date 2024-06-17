@@ -10,14 +10,16 @@
 
 using namespace std;
 
-
-
 bool verif_date(string date_string, int menos_dias = 0, int usuario_id = 0) {
     bool verife = false;
     string year = "";
     string moth = "";
     string day = "";
-
+    string fecha_devol;
+    time_t timestamp;
+    tm tiempo;
+    time(&timestamp);
+    localtime_s(&tiempo, &timestamp);
     int end_days[] = { 31, 29, 31, 30, 31, 30 };
     int n = sizeof(end_days) / sizeof(end_days[0]);
     for (int i = 0; i < date_string.length(); i++) {
@@ -58,7 +60,7 @@ bool verif_date(string date_string, int menos_dias = 0, int usuario_id = 0) {
         }
     }
 
-    if (stoi(moth) <= 7 && stoi(day) < 31) {
+    if (stoi(moth) <= 7 && stoi(day) < 31 && stoi(day)<= tiempo.tm_mday) {
         fecha_real += year;
         fecha_real += current;
         fecha_real += day;
@@ -70,17 +72,13 @@ bool verif_date(string date_string, int menos_dias = 0, int usuario_id = 0) {
 
     // 2024-06-7
     ///// TERMINAMOS VERIFICACION DE FECHA INGRESADA 
-    string fecha_devol;
-    time_t timestamp;
-    tm tiempo;
-    time(&timestamp);
-    localtime_s(&tiempo, &timestamp);
+  
     int dia_final = end_days[stoi(current)-1];
-    int dia_del_año = (stoi(current) * dia_final) - (30 - stoi(day)); // dia del año de la fecha real
-    cout << dia_del_año << "traza dia del año" << endl;
+    int dia_del_aÃ±o = (stoi(current) * dia_final) - (30 - stoi(day)); // dia del aÃ±o de la fecha real
+    cout << dia_del_aÃ±o << "traza dia del aÃ±o" << endl;
     cout << "dia final" << dia_final << endl;
-    cout << "dia deñ año tm " << tiempo.tm_yday << endl;
-    if (dia_del_año <= tiempo.tm_yday-5) {
+    cout << "dia deÃ± aÃ±o tm " << tiempo.tm_yday << endl;
+    if (dia_del_aÃ±o <= tiempo.tm_yday-5) {
         usuarios[usuario_id].tiene_sancion = true;
           return true;
     }
@@ -101,9 +99,6 @@ static string tiempo_sancion() {
     return fecha_sancion;
 }
 
-
-
-
 static bool verif_codigo_libro_devolucion(string codigo_libro) {
     int n = sizeof(inventario_disponible) / sizeof(inventario_disponible[0]);
     if (verif_entero(codigo_libro)) {
@@ -113,8 +108,6 @@ static bool verif_codigo_libro_devolucion(string codigo_libro) {
     }
     return false;
 }
-
-
 
 extern void obtener_informacion_devolucion(int usuario_id = 0) { // veces_ejecutado para filas
     string var_to_game;
@@ -131,7 +124,7 @@ extern void obtener_informacion_devolucion(int usuario_id = 0) { // veces_ejecut
         var_to_game = "";
         cout << "\n\t[+]Ingrese el codigo del libro: "; getline(cin, var_to_game);
         if (verif_codigo_libro_devolucion(var_to_game)) {
-            append_libro(usuario_id, var_to_game);
+            append_libro(usuario_id, var_to_game, "devolucion");
             break;
         }
         else {
@@ -144,7 +137,7 @@ extern void obtener_informacion_devolucion(int usuario_id = 0) { // veces_ejecut
            
             break;
         }
-        else { cout << RED << "\t[!]" << RESET << ORANGE << " Ingrese bien su DNI!\n" << RESET; }
+        else { cout << RED << "\t[!]" << RESET << ORANGE << " Ingrese bien la fecha!\n" << RESET; }
     }
 
 
