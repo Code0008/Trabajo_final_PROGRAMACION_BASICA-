@@ -7,7 +7,7 @@ using namespace std;
 
 struct LIBRO {
 	int codigo_libro;
-	string tipo_libro;
+	char tipo_libro;
 	string titutlo_libro;
 	bool prestado;
 };
