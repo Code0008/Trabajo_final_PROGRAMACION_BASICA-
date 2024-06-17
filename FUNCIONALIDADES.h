@@ -100,8 +100,7 @@ extern void obtener_informacion_usuario(int id_usuario) {
 		else { cout << RED << "\t[!]" << RESET << ORANGE << " Ingrese bien su edad!\n" << RESET; }
 	}
 	while (true) {
-		cout << LGREEN << "\t[+]Seleccion de sexo:\n\t->(1)Masculino\n\t->(2)Femenino\n\t->(3)Cabrini\n\t--> " << RESET; cin >> ingreso_jugar;
-		cout << ingreso_jugar << endl;
+		cout << LGREEN << "\t[+]Seleccion de sexo:\n\t->(1)Masculino\n\t->(2)Femenino\n\t->(3)Cabrin" << RESET<<YELLOW << "\n\t--> " << RESET;; cin >> ingreso_jugar;
 		if (verif_entero(ingreso_jugar)) { if (stoi(ingreso_jugar) == 1 || stoi(ingreso_jugar) == 2 || stoi(ingreso_jugar) == 3) { break; }  cout << RED << "\t[!]" << RESET << ORANGE << "Ingrese un valor correcto!\n " << RESET;
 		}
 		else { cout << RED << "\t[!]" << RESET << ORANGE << "Ingrese un valor correcto!\n " << RESET; }
@@ -117,7 +116,7 @@ extern void obtener_informacion_usuario(int id_usuario) {
 	}
 	cout << LGREEN << "\t[+]Ingrese su direccion: " << RESET;  getline(cin, usuarios[id_usuario].direccion.DIRECCION);
 	while (true) {
-		cout << LGREEN << "\t[+]Seleccione:\n\t-->(1)Casa\n\t-->(2)Departamento\n " << RESET; cin >> ingreso_jugar;
+		cout << LGREEN << "\t[+]Seleccione:\n\t-->(1)Casa\n\t-->(2)Departamento"<<RESET << YELLOW << "\n\t--> " << RESET; cin >> ingreso_jugar;
 		if (verif_entero(ingreso_jugar)) { if (stoi(ingreso_jugar) < 3 && stoi(ingreso_jugar) > 0) break; }
 		else { cout << RED << "\t[!]" << RESET << ORANGE << "Ingrese un valor correcto!\n " << RESET; }
 	}
@@ -164,7 +163,7 @@ extern bool verif_sancion(int usuario_id = 0) {
 }
 
 
-extern void append_libro(int usuario_id = 0, string libro = "void") {
+extern void append_libro(int usuario_id = 0, string libro = "void", string tipo_operacion="vacio") {
 	int indice = 0;
 
 	for (int i = 0; i < 50; i++) {
@@ -178,7 +177,7 @@ extern void append_libro(int usuario_id = 0, string libro = "void") {
 		{
 		case 0:	usuarios[usuario_id].libros_tratados[indice][j] = libro;break;
 		case 1: usuarios[usuario_id].libros_tratados[indice][j] = capture_time();break;
-		case 2:	usuarios[usuario_id].libros_tratados[indice][j] = "P";break;
+		case 2:	usuarios[usuario_id].libros_tratados[indice][j] = tipo_operacion;break;
 		case 3:	usuarios[usuario_id].libros_tratados[indice][j] = "true";break;
 		default:break;
 		}
@@ -189,9 +188,9 @@ extern int select() {
 	string seleccion;
 	while (true)
 	{
-		cout << "[!]";  estetica(5, '-'); cout << "Ingrsar como adfministador(1)\n ";
-		cout << "[!]";  estetica(5, '-'); cout << "Ingrsar como usuario normal(2)\n ";
-		cin >> seleccion;
+		cout <<ORANGE<<"\t\t[!]"<< RESET<<LGREEN <<"Ingresar como " << RESET << YELLOW "administrador " << RESET << BG_ORANGE << BLUE"(1)"<< RESET<< endl;
+		cout << ORANGE<<"\t\t[!]"<< RESET << LGREEN<< "Ingrsar como usuario normal " << RESET << BG_ORANGE << BLUE << "(2)"<< RESET << endl;
+		cout <<YELLOW <<"\t\t--> "<< RESET; cin >> seleccion;
 		if (verif_entero(seleccion)) { return stoi(seleccion);  }
 		else { continue; }
 	}
