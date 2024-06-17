@@ -5,41 +5,54 @@
 #include <string>
 #include <string>
 #include <cctype>
-
-
+#include <iomanip>
 
 using namespace std;
 
-
 LIBRO inventario_disponible[15] = {
-    {202412340, "LIBRO", "EL_QUIJOTE_DE_LA_MANCHA", false},
-	{202413830, "REVISTA", "NAT GEO NEW PUBLICATION", false},
-	{202412334, "PERIODICO", "ABEJA REPUBLICANA", false},
-	{202414555, "LIBRO", "CIEN_AÑOS_DE_SOLEDAD", false},
-	{202415666, "REVISTA", "TIME_MAGAZINE", false},
-	{202416777, "PERIODICO", "NEW_YORK_TIMES", false},
-	{202417888, "LIBRO", "DON_QUIJOTE", false},
-	{202418999, "REVISTA", "SCIENTIFIC_AMERICAN", false},
-	{202419000, "PERIODICO", "WASHINGTON_POST", false},
-	{202420111, "LIBRO", "LA_CASA_DE_LOS_ESPIRITUS", false},
-	{202421222, "LIBRO", "1984", false},
-	{202422333, "REVISTA", "FORBES", false},
-	{202423444, "PERIODICO", "THE_GUARDIAN", false},
-	{202424555, "LIBRO", "LA RUTA DEL TILIN", false},
-	{202425666, "REVISTA", "THE_ECONOMIST", false}
+	{202412340, 'L', "EL_QUIJOTE_DE_LA_MANCHA", false},
+	{202414555, 'L', "CIEN_AÃ‘OS_DE_SOLEDAD", false},
+	{202417888, 'L', "DON_QUIJOTE", false},
+	{202420111, 'L', "LA_CASA_DE_LOS_ESPIRITUS", false},
+	{202421222, 'L', "1984", false},
+	{202424555, 'L', "LA_RUTA_DEL_TILIN", false},
+	{202413830, 'R', "NAT_GEO_NEW_PUBLICATION", false},
+	{202415666, 'R', "TIME_MAGAZINE", false},
+	{202418999, 'R', "SCIENTIFIC_AMERICAN", false},
+	{202422333, 'R', "FORBES", false},
+	{202425666, 'R', "THE_ECONOMIST", false},
+	{202412334, 'P', "ABEJA_REPUBLICANA", false},
+	{202416777, 'P', "NEW_YORK_TIMES", false},
+	{202419000, 'P', "WASHINGTON_POST", false},
+	{202423444, 'P', "THE_GUARDIAN", false}
 };
-
 
 extern void see_inventory() {
 	cout << endl;
-	cout << "\tCODIGO\tTIPO\tTITULO" << endl;
-	for (int i = 0; i < 10; i++) {
-		if (inventario_disponible[i].prestado == false) {
-			cout << "\t" << inventario_disponible[i].codigo_libro << "\t|\t" << inventario_disponible[i].tipo_libro << "\t|\t" << inventario_disponible[i].titutlo_libro << endl;
+	cout<< MAGENTA; estetica(75, 177); cout << RESET<<endl ;
+	cout <<"\t" <<MAGENTA << (char)177 << RESET << " CODIGO\t\t\t TIPO\t\t\t  TITULO" << endl;
+	for (int i = 0; i < 15; i++) {
+		switch (inventario_disponible[i].tipo_libro)
+		{
+		case 'P':
+			if (inventario_disponible[i].prestado == false) {
+				cout << "\t" <<MAGENTA <<(char)177 <<RESET<< ROSE << inventario_disponible[i].codigo_libro << RESET << GRAY<<setw(20) << setfill('-') <<RESET<< LGREEN << "PERIODICO"<<RESET<<GRAY<<"-------" << RESET << CYAN << inventario_disponible[i].titutlo_libro << RESET << endl;
+			} break;
+		case 'L':
+			if (inventario_disponible[i].prestado == false) {
+				cout <<"\t" <<MAGENTA<<(char)177<<RESET << ROSE << inventario_disponible[i].codigo_libro << RESET << GRAY<<setw(20) << setfill('-') << RESET<<LGREEN << "LIBRO"<<RESET <<GRAY<<"-----------" << RESET << CYAN << inventario_disponible[i].titutlo_libro << RESET << endl;
+			} break;
+		case 'R':
+			if (inventario_disponible[i].prestado == false) {
+				cout << "\t" <<MAGENTA <<(char)177 <<RESET<< ROSE << inventario_disponible[i].codigo_libro << RESET <<GRAY<< setw(20) << setfill('-') << RESET<<LGREEN << "REVISTA"<<RESET<<GRAY<<"---------" << RESET << CYAN << inventario_disponible[i].titutlo_libro << RESET << endl;
+			} break;
+		default:
+			break;
 		}
 	}
-}
+	cout<< MAGENTA; estetica(75, 177); cout << RESET << endl;
 
+}
 
 static bool verif_codigo_libro(int usuario_id, string codigo_libro) {
 	int n = sizeof(inventario_disponible) / sizeof(inventario_disponible[0]);
@@ -47,7 +60,7 @@ static bool verif_codigo_libro(int usuario_id, string codigo_libro) {
 		if (codigo_libro.length() == 9) {
 			for (int i = 0; i < n; i++) {
 				if (inventario_disponible[i].codigo_libro == stoi(codigo_libro) && inventario_disponible[i].prestado == false) {
-					append_libro(usuario_id, codigo_libro);
+					append_libro(usuario_id, codigo_libro, "prestamo");
 					inventario_disponible[i].prestado = true;
 					return true;
 				}
@@ -72,11 +85,11 @@ static  string calculo_dia_devolucion(int usuario_id) {
 	}
 	for (int i = 0; i < n1; i++) {
 		if (inventario_disponible[i].codigo_libro == stoi(usuarios[usuario_id].libros_tratados[indice][0])) {
-			if (inventario_disponible[i].tipo_libro == "LIBRO" || inventario_disponible[i].tipo_libro == "REVISTA") {
+			if (inventario_disponible[i].tipo_libro = 'L' || inventario_disponible[i].tipo_libro == 'R') {
 				dias_max = 5;
 				break;
 			}
-			else if (inventario_disponible[i].tipo_libro == "PERIODICO") {
+			else if (inventario_disponible[i].tipo_libro == 'P') {
 				dias_max = 2;
 				break;
 			}
@@ -94,7 +107,6 @@ static  string calculo_dia_devolucion(int usuario_id) {
 	for (int i = 0; i < n; i++) {
 		moth_end_day = end_days[tiempo.tm_mon];
 	}
-
 	if (tiempo.tm_mday < tiempo.tm_mday + dias_max) { tiempo_capturado.append(to_string(tiempo.tm_mon + 1)); tiempo_capturado.append("/"); }
 	else { tiempo_capturado.append(to_string(tiempo.tm_mon + 2)); }
 	tiempo_capturado.append(to_string(tiempo.tm_mday + 5));
@@ -121,9 +133,8 @@ extern  void see_matris(int usuario_id = 0) {
 	}
 }
 
-
 extern void obtener_informacion_prestamo(int usuario_id = 0) {
-	see_inventory();
+	
 	string var_to_game;
 	if (usuarios[usuario_id].DNI == "void") {
 		while (true) {
@@ -134,6 +145,7 @@ extern void obtener_informacion_prestamo(int usuario_id = 0) {
 			else { cout << RED << "\t[!]" << RESET << ORANGE << " Ingrese bien su DNI!\n" << RESET; }
 		}
 	}
+	see_inventory();
 	while (true) {
 		var_to_game = "";
 		cout << "\n\t[+]Ingrese el codigo del libro: "; getline(cin, var_to_game);
@@ -148,21 +160,20 @@ extern void obtener_informacion_prestamo(int usuario_id = 0) {
 }
 
 
-
 static void boleta_prestamo(int usuario_id = 0) {
 	estetica(100, '_'); cout << endl;
-	cout << "\t"; estetica(5, '-'); cout << " " << usuarios[usuario_id].userID << endl;
-	cout << "\t"; estetica(5, '-'); cout << " " << usuarios[usuario_id].DNI << endl;
-	cout << "\t"; estetica(5, '-'); cout << " " << usuarios[usuario_id].NOMBRE_APELLIDO << endl;
-	cout << "\t"; estetica(5, '-'); cout << " " << usuarios[usuario_id].EDAD << endl;
-	cout << "\t"; estetica(5, '-'); cout << " " << usuarios[usuario_id].SEXO << endl;
-	cout << "\t"; estetica(5, '-'); cout << " " << usuarios[usuario_id].direccion.CASA_DEPARTAMENTO << endl;
-	cout << "\t"; estetica(5, '-'); cout << " " << usuarios[usuario_id].direccion.DIRECCION << endl;
-	cout << "\t"; estetica(5, '-'); cout << " " << usuarios[usuario_id].direccion.DISTRITO << endl;
-	cout << "\t"; estetica(5, '-'); cout << " " << usuarios[usuario_id].direccion.PROVINCIA << endl;
-	cout << "\t"; estetica(5, '-'); cout << " " << usuarios[usuario_id].CELULAR << endl;
-	cout << "\t"; estetica(5, '-'); cout << " " << usuarios[usuario_id].hora_operacion << endl;
-	estetica(100, '_'); cout << endl;
+	cout << "\t" <<(char)186; estetica(10, ' '); cout <<"ID USUARIO" << (char)175 <<" " << usuarios[usuario_id].userID << endl;
+	cout << "\t" << (char)186; estetica(10, ' '); cout <<"DNI" << (char)175 << " " << usuarios[usuario_id].DNI << endl;
+	cout << "\t" << (char)186; estetica(10, ' '); cout <<"NOMBRE" << (char)175 <<" " << usuarios[usuario_id].NOMBRE_APELLIDO << endl;
+	cout << "\t" << (char)186; estetica(10, ' '); cout <<"EDAD" <<(char)175 << " "<<usuarios[usuario_id].EDAD << endl;
+	cout << "\t" << (char)186; estetica(10, ' '); cout <<"SEXO" << (char)175 <<" "<< usuarios[usuario_id].SEXO << endl;
+	cout << "\t" << (char)186; estetica(10, ' '); cout << "TIPO DOMICILIO" << (char)175 <<" " << usuarios[usuario_id].direccion.CASA_DEPARTAMENTO << endl;
+	cout << "\t" << (char)186; estetica(10, ' '); cout << "DIRECCION" << (char)175 << " " << usuarios[usuario_id].direccion.DIRECCION << endl;
+	cout << "\t" << (char)186; estetica(10, ' '); cout << "DISTRITO" << (char)175 <<" " << usuarios[usuario_id].direccion.DISTRITO << endl;
+	cout << "\t" << (char)186; estetica(10, ' '); cout <<"PROVINCIA" << (char)175 <<" "<< usuarios[usuario_id].direccion.PROVINCIA << endl;
+	cout << "\t" << (char)186; estetica(10, ' '); cout <<"NUMERO DE CELULAR" << (char)175 <<" " << usuarios[usuario_id].CELULAR << endl;
+	cout << "\t" << (char)186; estetica(10, ' '); cout << "HORA DE INGRESO" << (char)175<<" " << usuarios[usuario_id].hora_operacion << endl;
+	estetica(100, 238); cout << endl;
 	see_matris(usuario_id);
 
 }
