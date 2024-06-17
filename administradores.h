@@ -14,7 +14,6 @@
 using namespace std;
 
 
-
 static string verif_password(string password) {
     char* caracteres = new char[26];
     char* caracteres_dos = new char[26];
@@ -91,22 +90,22 @@ extern void informacion_administrador() {
     bool is_valid = false;
     while (true) {
         cout << endl;
-        cout << "[+] Ingrsese su nombre de administrado: ";
+        cout << ROSE "\t[+]" << RESET << LGREEN "Ingrese su nombre de administrativo: " << RESET;
         getline(cin, var_to_game);
         indice = valid_username(var_to_game);
         if (indice < 8) {
-            cout << "[!] Ingrese su contraseña : ";
+            cout << ROSE<<"\t[!]"<< RESET<< LGREEN<<"Ingrese su contrasena : " << RESET;
             getline(cin, var_to_game);
             if (validate_exist_passwor(var_to_game, indice)) {
                 is_valid = true;
                 break;
             }
             else {
-                cout << "[!] CONTRASEÑA MAL INGRESADA POR FAVOR CONTINUE DE NUEVO" << endl;
+                cout << RED << "\t[!] " << RESET << ORANGE << " CONTRASEÃ‘A MAL INGRESADA!" << RESET << endl;
                 continue;
             }
         }
-        else { cout << "[!]Usuario no existe: " << endl; continue; }
+        else { cout << RED << "\t[!] " << RESET << ORANGE  <<" USUARIO NO EXISTE" << RESET<< endl; continue; }
     }
 
     if (is_valid){
