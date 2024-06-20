@@ -12,11 +12,12 @@
 using namespace std;
 int main() {
 	RESET;
+	int id_cliente = 0;
 	system("mode con: cols=150 lines=50");
 	while (true) {
 		string seleccion;
 		menu_seleccion();
-		switch (select()){
+		switch (select()) {
 		case 1:
 			system("cls");
 			menu_adminsitrador();
@@ -24,10 +25,9 @@ int main() {
 			break;
 		case 2:
 			system("cls");
-			int id_usuario = 0;
 			cin.ignore();
 			menu_login();
-			obtener_informacion_usuario(id_usuario);
+			obtener_informacion_usuario(id_cliente);
 			generar_matris();
 			while (true) {
 				system("cls");
@@ -42,32 +42,33 @@ int main() {
 				switch (stoi(seleccion))
 				{
 				case 1:
-					if (verif_sancion(id_usuario)) {
+					if (verif_sancion(id_cliente)) {
 						menu_de_sancion();
 						break;
 					}
 					system("cls");
 					menu_prestamo();
-					obtener_informacion_prestamo(id_usuario);
-					boleta_prestamo(id_usuario);
+					obtener_informacion_prestamo(id_cliente);
+					boleta_prestamo(id_cliente);
 					break;
 				case 2:
 					menu_devulocion();
-					obtener_informacion_devolucion(id_usuario);
-					boleta_devolucion(id_usuario);
+					obtener_informacion_devolucion(id_cliente);
+					boleta_devolucion(id_cliente);
 					break;
 				default:
 					break;
 				}
-				if (respuesta_continuar() != true) { break; }
-			}
-			id_usuario++;
+				if (respuesta_continuar() != true) {
+					id_cliente++;
+					break; }
+			} 
+		case 3:
+			cout << "prueba caso 3";
 			break;
-
 		}
-		system("cls");
+		
 	}
-	
 	return 0;
 }
 
