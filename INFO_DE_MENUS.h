@@ -5,7 +5,7 @@
 using namespace std;
 
 extern void menu_seleccion() {
-        
+
     cout << "\n" << LBLUE
         "\t  ____  _                           _     _       \n"
         "\t |  _ \\(_)                         (_)   | |      \n"
@@ -32,15 +32,15 @@ extern void menu_login() {
         "\t\t$$$$$$$  $$$$$$\\$$$$$$$$\\$$ | \\$$ |  \\$  /  $$$$$$$$\\$$ | \\$$ $$$$$$\\$$$$$$$  |$$$$$$  |\n"
         "\t\t\\_______/\\______\\________\\__|  \\__|   \\_/   \\________\\__|  \\__\\______\\_______/ \\______/ \n" << RESET;
     cout << BG_BLACK << "\t"; estetica(88, ' '); cout << endl;
-    cout <<  BLUE;  estetica(100, 219); cout << RESET<< endl;
+    cout << BLUE;  estetica(100, 219); cout << RESET << endl;
     cout << LGREEN << "\t\t\t\tfecha de ingreso: " << capture_time() << RESET << endl;
     cout << LGREEN << "\t\t\t\t\t-INGRESE INFORMACION BASICA DE USUARIO-\t\t\t" << RESET << endl;
-    cout <<  BLUE;  estetica(100, 219); cout << RESET << endl<< endl;
+    cout << BLUE;  estetica(100, 219); cout << RESET << endl << endl;
 }
 
 
 extern void menu_principal() {
-    cout <<  LGREEN;
+    cout << LGREEN;
     cout << "                          ...                                                                       \n"
         "                        .,:;;;,.                                                                    \n"
         "                      .';::::::;,;,.                                                                \n"
@@ -77,10 +77,10 @@ extern void menu_principal() {
         "                                              ................                                      \n"
         "                                               ..';cc;....,;:'                                      \n"
         "                                               ..',::,....,;c;                                      \n"
-        "                                                                " <<RESET<< endl;
+        "                                                                " << RESET << endl;
     cout << endl;
     cout << MAGENTA; estetica(100, 219); cout << endl << RESET;
-    cout <<YELLOW << "\n\t--> " << RESET <<LGREEN<<"SELECCION PRESTAMO   "<<RESET<<GRAY << "(1)" << RESET<< YELLOW << "\n\t--> " << RESET << LGREEN <<"SELECCION DEVOLUCION " << GRAY << "(2)" << RESET;
+    cout << YELLOW << "\n\t--> " << RESET << LGREEN << "SELECCION PRESTAMO   " << RESET << GRAY << "(1)" << RESET << YELLOW << "\n\t--> " << RESET << LGREEN << "SELECCION DEVOLUCION " << GRAY << "(2)" << RESET;
 
 }
 
@@ -96,8 +96,8 @@ extern void menu_prestamo() {
         "                                                          ";
 }
 
-extern void menu_de_sancion(){
-    cout << RED << "[!]" << RESET << ORANGE<<"EL USUARIO TIENE SANCION " << RESET<< endl;
+extern void menu_de_sancion() {
+    cout << RED << "[!]" << RESET << ORANGE << "EL USUARIO TIENE SANCION " << RESET << endl;
 
 }
 
@@ -112,7 +112,7 @@ extern void menu_adminsitrador() {
         "\t  / ____ \\| |__| | |  | |_| |_| |\\  |_| |_ ____) |  | |  | | \\ \\  / ____ \\| |__| | |__| | | \\ \\ \n"
         "\t /_/    \\_\\_____/|_|  |_|_____|_| \\_|_____|_____/   |_|  |_|  \\_\\/_/    \\_\\_____/ \\____/|_|  \\_\\\n"
         "\t                                                                                                \n"
-        "\t                                                                                                "<< RESET;
+        "\t                                                                                                " << RESET;
 
 }
 
