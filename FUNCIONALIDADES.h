@@ -11,9 +11,6 @@
 
 using namespace std;
 
-LIBRO* inventario = new LIBRO[100];
-
-USUARIO* usuarios = new USUARIO[100];
 
 bool verif_string(string texto);
 bool verif_dni(string dni);
@@ -87,16 +84,16 @@ extern string capture_time() {
 
 extern void obtener_informacion_usuario(int id_usuario) {
 	string ingreso_jugar;
-	usuarios[id_usuario].hora_operacion = capture_time();
-	usuarios[id_usuario].userID = id_usuario;
+	clientes[id_usuario].hora_operacion = capture_time();
+	clientes[id_usuario].userID = id_usuario;
 	while (true) {
-		cout << LGREEN << "\t[+]Ingrese nombre del usuario: " << RESET; getline(cin, usuarios[id_usuario].NOMBRE_APELLIDO);
-		if (verif_string(usuarios[id_usuario].NOMBRE_APELLIDO)) { cout << RED << "\t[!]" << RESET << ORANGE << "INGRESE BIEN EL NOMBRE\n" << RESET; }
+		cout << LGREEN << "\t[+]Ingrese nombre del usuario: " << RESET; getline(cin, clientes[id_usuario].NOMBRE_APELLIDO);
+		if (verif_string(clientes[id_usuario].NOMBRE_APELLIDO)) { cout << RED << "\t[!]" << RESET << ORANGE << "INGRESE BIEN EL NOMBRE\n" << RESET; }
 		else { break; }
 	}
 	while (true) {
 		cout << LGREEN << "\t[+]Ingrese edad del usuario: " << RESET;  cin >> ingreso_jugar;
-		if (verif_entero(ingreso_jugar)) { usuarios[id_usuario].EDAD = stoi(ingreso_jugar); break; }
+		if (verif_entero(ingreso_jugar)) { clientes[id_usuario].EDAD = stoi(ingreso_jugar); break; }
 		else { cout << RED << "\t[!]" << RESET << ORANGE << " Ingrese bien su edad!\n" << RESET; }
 	}
 	while (true) {
@@ -107,14 +104,14 @@ extern void obtener_informacion_usuario(int id_usuario) {
 	}
 	switch (stoi(ingreso_jugar))
 	{
-	case 1: usuarios[id_usuario].SEXO = 'M'; break; case 2: usuarios[id_usuario].SEXO = 'F'; break; case 3: usuarios[id_usuario].SEXO = 'N'; break; default:break;
+	case 1: clientes[id_usuario].SEXO = 'M'; break; case 2: clientes[id_usuario].SEXO = 'F'; break; case 3: clientes[id_usuario].SEXO = 'N'; break; default:break;
 	}
 	while (true) {
-		cout << LGREEN << "\t[+]Ingrese su distrito: " << RESET; cin.ignore();  getline(cin, usuarios[id_usuario].direccion.DISTRITO);
-		if (verif_string(usuarios[id_usuario].direccion.DISTRITO)) { cout << RED << "\t[!]" << RESET << ORANGE << "Ingrese bien los datos!\n" << RESET; }
+		cout << LGREEN << "\t[+]Ingrese su distrito: " << RESET; cin.ignore();  getline(cin, clientes[id_usuario].direccion.DISTRITO);
+		if (verif_string(clientes[id_usuario].direccion.DISTRITO)) { cout << RED << "\t[!]" << RESET << ORANGE << "Ingrese bien los datos!\n" << RESET; }
 		else { break; }
 	}
-	cout << LGREEN << "\t[+]Ingrese su direccion: " << RESET;  getline(cin, usuarios[id_usuario].direccion.DIRECCION);
+	cout << LGREEN << "\t[+]Ingrese su direccion: " << RESET;  getline(cin, clientes[id_usuario].direccion.DIRECCION);
 	while (true) {
 		cout << LGREEN << "\t[+]Seleccione:\n\t-->(1)Casa\n\t-->(2)Departamento"<<RESET << YELLOW << "\n\t--> " << RESET; cin >> ingreso_jugar;
 		if (verif_entero(ingreso_jugar)) { if (stoi(ingreso_jugar) < 3 && stoi(ingreso_jugar) > 0) break; }
@@ -122,12 +119,12 @@ extern void obtener_informacion_usuario(int id_usuario) {
 	}
 	switch (stoi(ingreso_jugar))
 	{
-	case 1:  usuarios[id_usuario].direccion.CASA_DEPARTAMENTO = "CASA"; break; case 2:  usuarios[id_usuario].direccion.CASA_DEPARTAMENTO = "DEPARTAMENTO"; break; default:break;
+	case 1:  clientes[id_usuario].direccion.CASA_DEPARTAMENTO = "CASA"; break; case 2:  clientes[id_usuario].direccion.CASA_DEPARTAMENTO = "DEPARTAMENTO"; break; default:break;
 	}
 	while (true) {
 		cout << LGREEN << "\t[+]Ingrese su numero de celular (SIN PREFIJO): " << RESET; cin.ignore();  cin >> ingreso_jugar;
 		if (verif_telefono(ingreso_jugar) == false) { ingreso_jugar = " "; cout << RED << "\t[!]" << RESET << ORANGE << " Ingreso de forma erronea el numero telefnoico\n" << RESET; }
-		else { usuarios[id_usuario].CELULAR = ingreso_jugar; break; }
+		else { clientes[id_usuario].CELULAR = ingreso_jugar; break; }
 	}
 }
 
@@ -155,19 +152,19 @@ extern int codigo_aleatorio(int inicio, int fin) {
 }
 
 
-extern bool verif_sancion(int usuario_id = 0) {
-	if (usuarios[usuario_id].tiene_sancion == true) {
+extern bool verif_sancion(int cliente_id = 0) {
+	if (clientes[cliente_id].tiene_sancion == true) {
 		return  true;
 	}
 	else { return false; }
 }
 
 
-extern void append_libro(int usuario_id = 0, string libro = "void", string tipo_operacion="vacio") {
+extern void append_libro(int cliente_id = 0, string libro = "void", string tipo_operacion="vacio") {
 	int indice = 0;
 
 	for (int i = 0; i < 50; i++) {
-		if (usuarios[usuario_id].libros_tratados[i][3] == "true" && usuarios[usuario_id].libros_tratados[i + 1][3] == "void") {
+		if (clientes[cliente_id].libros_tratados[i][3] == "true" && clientes[cliente_id].libros_tratados[i + 1][3] == "void") {
 			indice = i + 1;
 			break;
 		}
@@ -175,10 +172,10 @@ extern void append_libro(int usuario_id = 0, string libro = "void", string tipo_
 	for (int j = 0; j < 5; j++) {
 		switch (j)
 		{
-		case 0:	usuarios[usuario_id].libros_tratados[indice][j] = libro;break;
-		case 1: usuarios[usuario_id].libros_tratados[indice][j] = capture_time();break;
-		case 2:	usuarios[usuario_id].libros_tratados[indice][j] = tipo_operacion;break;
-		case 3:	usuarios[usuario_id].libros_tratados[indice][j] = "true";break;
+		case 0:	clientes[cliente_id].libros_tratados[indice][j] = libro;break;
+		case 1: clientes[cliente_id].libros_tratados[indice][j] = capture_time();break;
+		case 2:	clientes[cliente_id].libros_tratados[indice][j] = tipo_operacion;break;
+		case 3:	clientes[cliente_id].libros_tratados[indice][j] = "true";break;
 		default:break;
 		}
 	}
