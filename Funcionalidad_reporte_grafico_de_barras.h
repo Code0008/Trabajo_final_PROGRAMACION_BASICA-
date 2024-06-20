@@ -10,8 +10,7 @@ using namespace std;
 int** datos = new int* [8];
 
 extern void generar_matris_barras() {
-	// datos[i]-> Accedemos a las filas de los años
-	// new int[11]-> creamos las columnas de todos los meses
+
 	for (int i = 0; i < 8; i++) {
 		datos[i] = new int[12];
 	}
@@ -27,7 +26,7 @@ extern void generar_datos() {
 		datos[i][0] = years[i];
 
 		for (int j = 1; j < 12; j++) {
-			datos[i][j] = rand() % 2000 + (5000 - 2000); // almacenamos numero de usuarios por mes en las columnas j
+			datos[i][j] = rand() % 2000 + (5000 - 2000); 
 		}
 		indice++;
 	}
@@ -57,7 +56,7 @@ extern void gen_grafico(int tamano, char caracter = 254) {
 }
 
 extern void see_first_semes(int year = 2024) {
-	string meses[] = { "enero-febrero->", "febrero-marzo->", "marzo-abril->", "abril-mayo->", "mayo-junio->", "junio-julio->" };
+	string meses[] = { "enero", "febrero", "marzo", "abril", "mayo", "junio" };
 	int indice = 0;
 	int n = sizeof(meses) / sizeof(meses[0]);
 	for (int i = 0; i < n; i++) {
@@ -97,4 +96,13 @@ extern void see_first_semes(int year = 2024) {
 	}
 
 
+}
+
+void grafico_de_barras(){
+	
+
+	generar_matris_barras();
+	generar_datos();
+	see_first_semes();
+	//see_Data();
 }
