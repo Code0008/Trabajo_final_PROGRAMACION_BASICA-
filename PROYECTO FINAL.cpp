@@ -13,28 +13,30 @@ using namespace std;
 int main() {
 	RESET;
 	int id_cliente = 0;
-	system("mode con: cols=150 lines=50");
+	string seleccion;
+	char sel;
+	int comentario_id=0;
+	system("mode con: cols=200 lines=50");
 	while (true) {
-		string seleccion;
 		menu_seleccion();
 		switch (select()) {
-		case 1:
+		case '1':
 			system("cls");
 			menu_adminsitrador();
 			informacion_administrador();
+			
 			break;
-		case 2:
+		case '2':
 			system("cls");
-			cin.ignore();
 			menu_login();
 			obtener_informacion_usuario(id_cliente);
 			generar_matris();
 			while (true) {
 				system("cls");
 				menu_principal();  cout << endl;
+				cin.ignore();
 				while (true) {
-					cin.ignore();
-					cout << ORANGE << "\t[!]" << RESET << LGREEN << " Ingrese seleccion: " << RESET;
+					cout << ORANGE << "\t\t\t\t\t\t [!]" << RESET << LGREEN << " Ingrese seleccion: " << RESET;
 					getline(cin, seleccion);
 					if (verif_entero(seleccion)) { if (stoi(seleccion) == 1 || stoi(seleccion) == 2) { break; } else { cout << RED << "\t[!]" << RESET << ORANGE << "Ingrese una opcion valida!\n" << RESET; continue; } }
 					else { cout << RED << "\t[!]" << RESET << ORANGE << "Ingrese una opcion valida!\n" << RESET; }
@@ -52,18 +54,33 @@ int main() {
 					boleta_prestamo(id_cliente);
 					break;
 				case 2:
+					system("cls");
 					menu_devulocion();
 					obtener_informacion_devolucion(id_cliente);
 					boleta_devolucion(id_cliente);
+					while (true) {
+						cout << endl;
+						cout << ORANGE << "\t\t\t\t\t\t [!]" << RESET << LGREEN << " QUIERE REALIZAR COMENTARIO? Y/N" << RESET;
+						cout << YELLOW << "\n\t\t\t\t\t" << (char)219 << "\t--> " << RESET; sel = _getch(); cout << endl;
+						if (sel == 'Y' || sel == 'y') {
+							make_comentario(id_cliente, comentario_id);
+							comentario_id++;
+							break;
+						}
+						else { break; }
+					}
 					break;
 				default:
 					break;
 				}
 				if (respuesta_continuar() != true) {
+					system("cls");
 					id_cliente++;
-					break; }
-			} 
-		case 3:
+					cin.ignore();
+					break;
+				}
+			} break;
+		case '3':
 			cout << "prueba caso 3";
 			break;
 		}
@@ -73,12 +90,3 @@ int main() {
 }
 
 
-/*int main() {
-
-	generar_matris_barras();
-	generar_datos();
-	see_first_semes();
-	see_Data();
-}*/
-
-// CODIGO PENDEJO DE PENDEJOS ECHO PARA PENDEJOS
