@@ -1,3 +1,4 @@
+#pragma once
 //===Color font code===/
 #define BLACK   "\x1B[30m"
 #define RED     "\x1b[31m"
