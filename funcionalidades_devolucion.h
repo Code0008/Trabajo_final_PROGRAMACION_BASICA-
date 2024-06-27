@@ -11,13 +11,10 @@
 using namespace std;
 
 bool verif_date(string date_string, int menos_dias = 0, int cliente_id = 0) {
-    switch (date_string.length())
-    {
+    switch (date_string.length()){
     case 9:  break;
     case 10: break;
-    default:
-        return false;
-        break;
+    default: return false; break;
     }
     bool verife = false;
     string year = "";
@@ -83,10 +80,8 @@ bool verif_date(string date_string, int menos_dias = 0, int cliente_id = 0) {
   
     int dia_final = end_days[stoi(current)-1];
     int dia_del_año = (stoi(current) * dia_final) - (30 - stoi(day)); // dia del año de la fecha real
-    cout << dia_del_año << "traza dia del año" << endl;
-    cout << "dia final" << dia_final << endl;
-    cout << "dia deñ año tm " << tiempo.tm_yday << endl;
-    if (dia_del_año <= tiempo.tm_yday-5) {
+
+    if (dia_del_año <= tiempo.tm_yday-menos_dias) {
         clientes[cliente_id].tiene_sancion = true;
           return true;
     }
@@ -119,61 +114,105 @@ static bool verif_codigo_libro_devolucion(string codigo_libro) {
 
 extern void obtener_informacion_devolucion(int cliente_id = 0) { // veces_ejecutado para filas
     string var_to_game;
+    cout << endl;
     if (clientes[cliente_id].DNI == "void") {
         while (true) {
-            cout << "\n\t[+]Ingrese su numero de DNI: "; getline(cin, var_to_game);
+            cout << LGREEN << "\t\t\t\t\t[!]" << RESET << CYAN << " INGRESE SU DNI: " << RESET;  getline(cin, var_to_game);
             if (verif_dni(var_to_game)) {
                 clientes[cliente_id].DNI = var_to_game; break;
             }
-            else { cout << RED << "\t[!]" << RESET << ORANGE << " Ingrese bien su DNI!\n" << RESET; }
+            else { cout << RED << "\t\t\t\t\t[!]" << RESET << ORANGE << " Ingrese bien su DNI!\n" << RESET; }
         }
     }
     while (true) {
         var_to_game = "";
-        cout << "\n\t[+]Ingrese el codigo del libro: "; getline(cin, var_to_game);
+        cout << LGREEN << "\t\t\t\t\t[!]" << RESET << CYAN << " INGRESE CODIGO DEL LIBRO: " << RESET;  getline(cin, var_to_game);
         if (verif_codigo_libro_devolucion(var_to_game)) {
             append_libro(cliente_id, var_to_game, "devolucion");
             break;
         }
         else {
-            cout << RED << "\t[!]" << RESET << ORANGE << " Ingrese de forma valida su codigo!\n" << RESET;
+            cout << RED << "\t\t\t\t\t[!]" << RESET << ORANGE << " Ingrese de forma valida su codigo!\n" << RESET;
         }
     }
+    char tipo_publi ;
+    int tipo_publi_dias = 0;
+    while (true)
+    {
+        cout << LGREEN << "\t\t\t\t\t[!]" << RESET << CYAN << " INGRESE TIPO DE PUBLICACION: " << RESET;
+        tipo_publi = _getch();
+        tipo_publi = toupper(tipo_publi);
+        if (tipo_publi == 'R' || tipo_publi == 'L' || tipo_publi == 'P') {
+            break;
+        }
+        else { cout << RED << "\t\t\t\t\t[!]" << RESET << ORANGE << " Ingrese un tipo de publicacion correcta!\n" << RESET; }
+    }
+    switch (tipo_publi)
+    {
+    case 'R': tipo_publi_dias = 5; break;
+    case 'L': tipo_publi_dias = 5; break;
+    case 'P': tipo_publi_dias = 4; break;
+    }
+    cout << endl;
     while (true) {
-        cout << "\n\t[+]Ingrese la fecha real devolucion(2024-xx-xx) "; getline(cin, var_to_game);
-        if (verif_date(var_to_game, 5, cliente_id)) {
+        cout << LGREEN << "\t\t\t\t\t[+]" << RESET << CYAN << "Ingrese la fecha real devolucion(2024-mes-dia) " << RESET; ; getline(cin, var_to_game);
+        if (verif_date(var_to_game, tipo_publi_dias, cliente_id)) {
            
             break;
         }
-        else { cout << RED << "\t[!]" << RESET << ORANGE << " Ingrese bien la fecha!\n" << RESET; }
+        else { cout << RED << "\t\t\t\t\t[!]" << RESET << ORANGE << " Ingrese bien la fecha!\n" << RESET; }
     }
 
 
     if (clientes[cliente_id].tiene_sancion) {
-        cout << "Usted tiene una sancion de 1 mes corriendo desde hoy dia hasta " << tiempo_sancion() << endl;
+        cout << "\t\t\t\t\ttUsted tiene una sancion de 1 mes corriendo desde hoy dia hasta " << tiempo_sancion() << endl;
         clientes[cliente_id].tiempo_sancion = tiempo_sancion();
     }
     else {
-        cout << "Felicidades usted esta en tiempo de entrega!" << endl;
+        cout << "\t\t\t\t\t[!!]Felicidades usted esta en tiempo de entrega!" << endl;
     }
 }
 
 extern void boleta_devolucion(int cliente_id = 0) {
-    estetica(100, '_'); cout << endl;
-    cout << "\tID DEL USUARIO: "; estetica(5, '-'); cout << " " << clientes[cliente_id].userID << endl;
-    cout << "\tDNI del usuario: "; estetica(5, '-'); cout << " " << clientes[cliente_id].DNI << endl;
-    cout << "\tNombres y apellidos: "; estetica(5, '-'); cout << " " << clientes[cliente_id].NOMBRE_APELLIDO << endl;
-    cout << "\tEdad: "; estetica(5, '-'); cout << " " << clientes[cliente_id].EDAD << endl;
-    cout << "\tSexo: "; estetica(5, '-'); cout << " " << clientes[cliente_id].SEXO << endl;
-    cout << "\tCasa: "; estetica(5, '-'); cout << " " << clientes[cliente_id].direccion.CASA_DEPARTAMENTO << endl;
-    cout << "\tDireccion: "; estetica(5, '-'); cout << " " << clientes[cliente_id].direccion.DIRECCION << endl;
-    cout << "\tDistrito: "; estetica(5, '-'); cout << " " << clientes[cliente_id].direccion.DISTRITO << endl;
-    cout << "\tProvincia: "; estetica(5, '-'); cout << " " << clientes[cliente_id].direccion.PROVINCIA << endl;
-    cout << "\tCelular: "; estetica(5, '-'); cout << " " << clientes[cliente_id].CELULAR << endl;
-    cout << "\tHora: "; estetica(5, '-'); cout << " " << clientes[cliente_id].hora_operacion << endl;
-    cout << "\tSancion: "; estetica(5, '-'); cout << " " << clientes[cliente_id].tiene_sancion << endl;
-    cout << "\tTiempo sancion: "; estetica(5, '-'); cout << " " << clientes[cliente_id].tiempo_sancion << endl;
-    estetica(100, '_'); cout << endl;
+    cout << "\t\t\t\t\t" << GRAY; estetica(65, '_'); cout << endl;
+    cout << "\t\t\t\t\t\t\t\t" << LGREEN << "BOLETA FINAL DEL USUARIO" << RESET << endl;
+    cout << "\t\t\t\t\t"; estetica(65, '_'); cout << endl;
+    cout << "\t\t\t\t\t\t" << (char)186; estetica(7, ' '); cout << CYAN << "ID USUARIO" << (char)175 << " " << clientes[cliente_id].userID << RESET << endl;
+    cout << "\t\t\t\t\t\t" << GRAY << (char)186; estetica(7, ' '); cout << LGREEN << "DNI" << (char)175 << " " << clientes[cliente_id].DNI << RESET << endl;
+    cout << "\t\t\t\t\t\t" << GRAY << (char)186; estetica(7, ' '); cout << LGREEN << "NOMBRE" << (char)175 << " " << clientes[cliente_id].NOMBRE_APELLIDO << RESET << endl;
+    cout << "\t\t\t\t\t\t" << GRAY << (char)186; estetica(7, ' '); cout << LGREEN << "EDAD" << (char)175 << " " << clientes[cliente_id].EDAD << RESET << endl;
+    cout << "\t\t\t\t\t\t" << GRAY << (char)186; estetica(7, ' '); cout << LGREEN << "SEXO" << (char)175 << " " << clientes[cliente_id].SEXO << RESET << endl;
+    cout << "\t\t\t\t\t\t" << GRAY << (char)186; estetica(7, ' '); cout << LGREEN << "TIPO DOMICILIO" << (char)175 << " " << clientes[cliente_id].direccion.CASA_DEPARTAMENTO << RESET << endl;
+    cout << "\t\t\t\t\t\t" << GRAY << (char)186; estetica(7, ' '); cout << LGREEN << "DIRECCION" << (char)175 << " " << clientes[cliente_id].direccion.DIRECCION << RESET << endl;
+    cout << "\t\t\t\t\t\t" << GRAY << (char)186; estetica(7, ' '); cout << LGREEN << "DISTRITO" << (char)175 << " " << clientes[cliente_id].direccion.DISTRITO << RESET << endl;
+    cout << "\t\t\t\t\t\t" << GRAY << (char)186; estetica(7, ' '); cout << LGREEN << "PROVINCIA" << (char)175 << " " << clientes[cliente_id].direccion.PROVINCIA << RESET << endl;
+    cout << "\t\t\t\t\t\t" << GRAY << (char)186; estetica(7, ' '); cout << LGREEN << "NUMERO DE CELULAR" << (char)175 << " " << clientes[cliente_id].CELULAR << RESET << endl;
+    cout << "\t\t\t\t\t\t" << GRAY << (char)186; estetica(7, ' '); cout << CYAN << "HORA DE INGRESO" << (char)175 << " " << clientes[cliente_id].hora_operacion << endl << RESET;
+    cout << "\t\t\t\t\t\t" << GRAY << (char)186; estetica(7, ' '); cout << CYAN << "HORA DE INGRESO" << (char)175 << " " << clientes[cliente_id].tiene_sancion << endl << RESET;
+    cout << "\t\t\t\t\t\t" << GRAY << (char)186; estetica(7, ' '); cout << CYAN << "HORA DE INGRESO" << (char)175 << " " << clientes[cliente_id].tiempo_sancion << endl << RESET;
+    cout << "\t\t\t\t\t" << GRAY; estetica(64, 238); cout << endl;
+    cout << CYAN << "\t\t\t\t\t\t\tINVENTARIO ACTUAL DEL CLIENTE " << endl;
+    cout << BLUE << "\t\t\t\t\t"; estetica(65, '_'); cout << endl;
     see_matris(cliente_id);
+    cout << BLUE << "\t\t\t\t\t"; estetica(65, '_'); cout << endl;
 
+}
+
+extern void make_comentario(int cliente_id, int comentari_id) {
+    system("cls");
+    cout << endl << endl << endl << endl;
+    cout << LGREEN << "\t\t\t\t\t[!]" << RESET << CYAN << " BIENVENIDO AL APARTADO DE COMENTARIOS " << clientes[cliente_id].NOMBRE_APELLIDO<< RESET<<endl;  
+    comentarios[comentari_id].comentario_id = comentari_id;
+    comentarios[comentari_id].cliente_id = cliente_id;
+    string mensaje;
+    cout << LGREEN << "\t\t\t\t\t[++]" << RESET << CYAN << " INGRESE SU COMERNTARIO DEL ULTIMO LIBRO QUE DEVOLVIO: " << RESET;
+    getline(cin, mensaje);
+    while (true) {
+        cout << LGREEN << "\t\t\t\t\t[!]" << RESET << CYAN << " cual seria la nota que le pondria al libro? 1-5: " << RESET;
+        cin >> mensaje;
+        if (verif_entero(mensaje)) {
+            break;
+        }
+    }
+    comentarios[comentari_id].tiempo = capture_time();
 }
