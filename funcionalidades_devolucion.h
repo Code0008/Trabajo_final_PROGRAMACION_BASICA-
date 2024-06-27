@@ -11,10 +11,21 @@
 using namespace std;
 
 bool verif_date(string date_string, int menos_dias = 0, int cliente_id = 0) {
+
+
     switch (date_string.length()){
     case 9:  break;
     case 10: break;
     default: return false; break;
+    }
+    int count_verif_ = 0;
+    for (int i = 0; i < date_string.length(); i++) {
+        if (date_string[i] == '-') {
+            count_verif_++;
+        }
+    }
+    if (count_verif_ != 2) {
+        return false;
     }
     bool verife = false;
     string year = "";
@@ -65,7 +76,7 @@ bool verif_date(string date_string, int menos_dias = 0, int cliente_id = 0) {
         }
     }
 
-    if (stoi(moth) <= 7 && stoi(day) < 31 && stoi(day)<= tiempo.tm_mday) {
+    if (stoi(moth) < 7 && stoi(day) < 31 && stoi(day)<= tiempo.tm_mday) {
         fecha_real += year;
         fecha_real += current;
         fecha_real += day;
@@ -79,7 +90,7 @@ bool verif_date(string date_string, int menos_dias = 0, int cliente_id = 0) {
     ///// TERMINAMOS VERIFICACION DE FECHA INGRESADA 
   
     int dia_final = end_days[stoi(current)-1];
-    int dia_del_ano = (stoi(current) * dia_final) - (30 - stoi(day)); // dia del año de la fecha real
+    int dia_del_ano = (stoi(current) * dia_final) - (30 - stoi(day)); // dia del aÃ±o de la fecha real
 
     if (dia_del_ano <= tiempo.tm_yday-menos_dias) {
         clientes[cliente_id].tiene_sancion = true;
@@ -139,7 +150,7 @@ extern void obtener_informacion_devolucion(int cliente_id = 0) { // veces_ejecut
     int tipo_publi_dias = 0;
     while (true)
     {
-        cout << LGREEN << "\t\t\t\t\t[!]" << RESET << CYAN << " INGRESE TIPO DE PUBLICACION: " << RESET;
+        cout << LGREEN << "\t\t\t\t\t[!]" << RESET << CYAN << " INGRESE TIPO DE PUBLICACION (R)EVISTA/(L)IBRO/(): " << RESET;
         tipo_publi = _getch();
         tipo_publi = toupper(tipo_publi);
         if (tipo_publi == 'R' || tipo_publi == 'L' || tipo_publi == 'P') {
@@ -200,18 +211,35 @@ extern void boleta_devolucion(int cliente_id = 0) {
 
 extern void make_comentario(int cliente_id, int comentari_id) {
     system("cls");
+    cout << BLUE << "\t\t\t";  estetica(80, 219);
     cout << endl << endl << endl << endl;
     cout << LGREEN << "\t\t\t\t\t[!]" << RESET << CYAN << " BIENVENIDO AL APARTADO DE COMENTARIOS " << clientes[cliente_id].NOMBRE_APELLIDO<< RESET<<endl;  
     comentarios[comentari_id].comentario_id = comentari_id;
     comentarios[comentari_id].cliente_id = cliente_id;
     string mensaje;
-    cout << LGREEN << "\t\t\t\t\t[++]" << RESET << CYAN << " INGRESE SU COMERNTARIO DEL ULTIMO LIBRO QUE DEVOLVIO: " << RESET;
+
+    while (true) {
+        cout << LGREEN << "\t\t\t\t\t[++]" << RESET << CYAN << " INGRESE SU correo electronico: " << RESET;
+        getline(cin, mensaje);
+        if (verif_correo(mensaje)) {
+            clientes[cliente_id].correo_cliente.correo_contacto = mensaje;
+            break;
+        }
+        else {
+            cout << RED << "\n\t\t\t\t[!]" << RESET << ORANGE << " Ingreso de forma erronea su correo\n" << RESET;
+        }
+        
+    }
+    cout << LGREEN << "\t\t\t\t\t[++]" << RESET << CYAN << " INGRESE SU COMENTARIO DEL ULTIMO LIBRO QUE DEVOLVIO: " << RESET;
     getline(cin, mensaje);
     while (true) {
-        cout << LGREEN << "\t\t\t\t\t[!]" << RESET << CYAN << " cual seria la nota que le pondria al libro? 1-5: " << RESET;
+        cout << LGREEN << "\t\t\t\t\t[!]" << RESET << CYAN << " cual seria la nota que le pondria al libro? 0-5: " << RESET;
         cin >> mensaje;
-        if (verif_entero(mensaje)) {
+        if (verif_entero(mensaje) && stoi(mensaje)>=0 && stoi(mensaje)<=5 ) {
             break;
+        }
+        else{
+            cout << RED << "\t\t\t\t\t[!]" << RESET << ORANGE << " INGRESE UNA CALIFICACION VALIDA!\n" << RESET;
         }
     }
     comentarios[comentari_id].tiempo = capture_time();
