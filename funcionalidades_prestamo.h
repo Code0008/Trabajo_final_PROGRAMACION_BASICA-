@@ -9,32 +9,38 @@
 
 using namespace std;
 
-
+static string imprimir_estrellas( LIBRO * librito) {
+	string stars;
+	for (int i = 0; i < librito->estrellas; i++) {
+		stars += "*";
+	}
+	return stars;
+}
 
 extern void see_inventory() {
 	cout << endl;
-	cout<< MAGENTA; estetica(75, 177); cout << RESET<<endl ;
-	cout <<"\t" <<MAGENTA << (char)177 << RESET << " CODIGO\t\t\t TIPO\t\t\t  TITULO" << endl;
+	cout<< "\t\t\t" << MAGENTA; estetica(80, 177); cout << RESET << endl;
+	cout <<"\t\t\t\t" <<MAGENTA << (char)177 << RESET << "   CODIGO\t\t\tTIPO\t\t\t TITULO( ESTRELLAS )" << endl;
 	for (int i = 0; i < 15; i++) {
 		switch (inventario_disponible[i].tipo_libro)
 		{
 		case 'P':
 			if (inventario_disponible[i].prestado == false) {
-				cout << "\t" <<MAGENTA <<(char)177 <<RESET<< ROSE << inventario_disponible[i].codigo_libro << RESET << GRAY<<setw(20) << setfill('-') <<RESET<< LGREEN << "PERIODICO"<<RESET<<GRAY<<"-------" << RESET << CYAN << inventario_disponible[i].titutlo_libro << RESET << endl;
+				cout << "\t\t\t\t" <<MAGENTA <<(char)177<<"   " << RESET << ROSE << inventario_disponible[i].codigo_libro << RESET << GRAY << setw(20) << setfill('-') << RESET << LGREEN << "PERIODICO" << RESET << GRAY << "----------" << RESET << CYAN << inventario_disponible[i].titutlo_libro << YELLOW << " ( " << imprimir_estrellas(&inventario_disponible[i]) << " )" << endl;
 			} break;
 		case 'L':
 			if (inventario_disponible[i].prestado == false) {
-				cout <<"\t" <<MAGENTA<<(char)177<<RESET << ROSE << inventario_disponible[i].codigo_libro << RESET << GRAY<<setw(20) << setfill('-') << RESET<<LGREEN << "LIBRO"<<RESET <<GRAY<<"-----------" << RESET << CYAN << inventario_disponible[i].titutlo_libro << RESET << endl;
+				cout <<"\t\t\t\t" <<MAGENTA<<(char)177<<"   " <<RESET << ROSE << inventario_disponible[i].codigo_libro << RESET << GRAY << setw(20) << setfill('-') << RESET << LGREEN << "LIBRO" << RESET << GRAY << "--------------" << RESET << CYAN << inventario_disponible[i].titutlo_libro << YELLOW << " ( " << imprimir_estrellas(&inventario_disponible[i]) <<" )" << endl;;
 			} break;
 		case 'R':
 			if (inventario_disponible[i].prestado == false) {
-				cout << "\t" <<MAGENTA <<(char)177 <<RESET<< ROSE << inventario_disponible[i].codigo_libro << RESET <<GRAY<< setw(20) << setfill('-') << RESET<<LGREEN << "REVISTA"<<RESET<<GRAY<<"---------" << RESET << CYAN << inventario_disponible[i].titutlo_libro << RESET << endl;
+				cout << "\t\t\t\t" <<MAGENTA <<(char)177 <<"   " << RESET << ROSE << inventario_disponible[i].codigo_libro << RESET << GRAY << setw(20) << setfill('-') << RESET << LGREEN << "REVISTA" << RESET << GRAY << "------------" << RESET << CYAN << inventario_disponible[i].titutlo_libro << YELLOW <<" ( " << imprimir_estrellas(&inventario_disponible[i]) <<" )" << endl;
 			} break;
 		default:
 			break;
 		}
 	}
-	cout<< MAGENTA; estetica(75, 177); cout << RESET << endl;
+	cout<<"\t\t\t" << MAGENTA; estetica(80, 177); cout << RESET << endl;
 
 }
 
@@ -109,9 +115,16 @@ extern void generar_matris(int cliente_id = 0) {
 extern  void see_matris(int cliente_id = 0) {
 	for (int i = 0; i < 50; i++) {
 		if (clientes[cliente_id].libros_tratados[i][3] == "true") {
-			cout << "\t";
+			cout << "\t\t\t\t\t";
 			for (int j = 0; j < 4; j++) {
-				cout << clientes[cliente_id].libros_tratados[i][j] << "|";
+				switch (j)
+				{
+				case 0: cout <<CYAN<< "CODIGO---" <<RESET<< ROSE<<clientes[cliente_id].libros_tratados[i][0];   break;
+				case 1:  cout <<LGREEN <<"---HORA---" <<RESET<< GREEN<<clientes[cliente_id].libros_tratados[i][1];   break;
+				case 2: cout << BLUE<<"--OPERACION---" <<RESET<< LGREEN<<clientes[cliente_id].libros_tratados[i][2];   break;
+				default:
+					break;
+				}
 			} cout << endl;
 		}
 	}
@@ -122,42 +135,48 @@ extern void obtener_informacion_prestamo(int cliente_id = 0) {
 	string var_to_game;
 	if (clientes[cliente_id].DNI == "void") {
 		while (true) {
-			cout << "\n\t[+]Ingrese su numero de DNI: "; getline(cin, var_to_game);
+			cout << LGREEN << "\t\t\t\t[!]" << RESET << CYAN << " INGRESE SU DNI: " << RESET; getline(cin, var_to_game);
 			if (verif_dni(var_to_game)) {
 				clientes[cliente_id].DNI = var_to_game; break;
 			}
-			else { cout << RED << "\t[!]" << RESET << ORANGE << " Ingrese bien su DNI!\n" << RESET; }
+			else { cout << RED << "\t\t\t\t[!]" << RESET << ORANGE << " Ingrese bien su DNI!\n" << RESET; }
 		}
 	}
 	see_inventory();
+	cout << endl;
 	while (true) {
 		var_to_game = "";
-		cout << "\n\t[+]Ingrese el codigo del libro: "; getline(cin, var_to_game);
+		cout << LGREEN << "\t\t\t\t\t[!]" << RESET << CYAN << " INGRESE CODIGO DEL LIBRO: " << RESET; getline(cin, var_to_game);
 		if (verif_codigo_libro(cliente_id,var_to_game)) {
 			break;
 		}
 		else {
-			cout << RED << "\t[!]" << RESET << ORANGE << " Libro prestado o codigo invalido!\n" << RESET;
+			cout << RED << "\t\t\t\t\t[!]" << RESET << ORANGE << " Libro prestado o codigo invalido!\n" << RESET;
 		}
 	}
-	cout << "\t[!] El dia maximo para devolver es: " << calculo_dia_devolucion(cliente_id) << endl;
+	cout << RED << "\t\t\t\t\t[!]" << RESET << LGREEN << " EL DIA MAXIMO PARA DEVOLVER ES (AÑO/MES/DIA): " << RESET <<RED<< calculo_dia_devolucion(cliente_id) << RESET<<endl;
 }
 
 
 static void boleta_prestamo(int cliente_id = 0) {
-	estetica(100, '_'); cout << endl;
-	cout << "\t" <<(char)186; estetica(10, ' '); cout <<"ID USUARIO" << (char)175 <<" " << clientes[cliente_id].userID << endl;
-	cout << "\t" << (char)186; estetica(10, ' '); cout <<"DNI" << (char)175 << " " << clientes[cliente_id].DNI << endl;
-	cout << "\t" << (char)186; estetica(10, ' '); cout <<"NOMBRE" << (char)175 <<" " << clientes[cliente_id].NOMBRE_APELLIDO << endl;
-	cout << "\t" << (char)186; estetica(10, ' '); cout <<"EDAD" <<(char)175 << " "<<clientes[cliente_id].EDAD << endl;
-	cout << "\t" << (char)186; estetica(10, ' '); cout <<"SEXO" << (char)175 <<" "<< clientes[cliente_id].SEXO << endl;
-	cout << "\t" << (char)186; estetica(10, ' '); cout << "TIPO DOMICILIO" << (char)175 <<" " << clientes[cliente_id].direccion.CASA_DEPARTAMENTO << endl;
-	cout << "\t" << (char)186; estetica(10, ' '); cout << "DIRECCION" << (char)175 << " " << clientes[cliente_id].direccion.DIRECCION << endl;
-	cout << "\t" << (char)186; estetica(10, ' '); cout << "DISTRITO" << (char)175 <<" " << clientes[cliente_id].direccion.DISTRITO << endl;
-	cout << "\t" << (char)186; estetica(10, ' '); cout <<"PROVINCIA" << (char)175 <<" "<< clientes[cliente_id].direccion.PROVINCIA << endl;
-	cout << "\t" << (char)186; estetica(10, ' '); cout <<"NUMERO DE CELULAR" << (char)175 <<" " << clientes[cliente_id].CELULAR << endl;
-	cout << "\t" << (char)186; estetica(10, ' '); cout << "HORA DE INGRESO" << (char)175<<" " << clientes[cliente_id].hora_operacion << endl;
-	estetica(100, 238); cout << endl;
+	cout << "\t\t\t\t\t"<<GRAY; estetica(65, '_'); cout << endl;
+	cout << "\t\t\t\t\t\t\t\t" << LGREEN << "BOLETA FINAL DEL USUARIO" << RESET << endl;
+	cout << "\t\t\t\t\t"; estetica(65, '_'); cout << endl;
+	cout << "\t\t\t\t\t\t" <<(char)186; estetica(7, ' '); cout <<CYAN<<"ID USUARIO" << (char)175 <<" " << clientes[cliente_id].userID << RESET<<endl;
+	cout << "\t\t\t\t\t\t" << GRAY << (char)186; estetica(7, ' '); cout <<LGREEN<<"DNI" << (char)175 << " " << clientes[cliente_id].DNI << RESET << endl;
+	cout << "\t\t\t\t\t\t" << GRAY << (char)186; estetica(7, ' '); cout <<LGREEN<<"NOMBRE" << (char)175 <<" " << clientes[cliente_id].NOMBRE_APELLIDO << RESET << endl;
+	cout << "\t\t\t\t\t\t" << GRAY << (char)186; estetica(7, ' '); cout <<LGREEN<<"EDAD" <<(char)175 << " "<<clientes[cliente_id].EDAD << RESET << endl;
+	cout << "\t\t\t\t\t\t" << GRAY << (char)186; estetica(7, ' '); cout <<LGREEN<<"SEXO" << (char)175 <<" "<< clientes[cliente_id].SEXO << RESET << endl;
+	cout << "\t\t\t\t\t\t" << GRAY << (char)186; estetica(7, ' '); cout <<LGREEN <<"TIPO DOMICILIO" << (char)175 <<" " << clientes[cliente_id].direccion.CASA_DEPARTAMENTO << RESET << endl;
+	cout << "\t\t\t\t\t\t" << GRAY << (char)186; estetica(7, ' '); cout << LGREEN<<"DIRECCION" << (char)175 << " " << clientes[cliente_id].direccion.DIRECCION << RESET << endl;
+	cout << "\t\t\t\t\t\t" << GRAY << (char)186; estetica(7, ' '); cout << LGREEN<<"DISTRITO" << (char)175 <<" " << clientes[cliente_id].direccion.DISTRITO << RESET << endl;
+	cout << "\t\t\t\t\t\t" << GRAY << (char)186; estetica(7, ' '); cout <<LGREEN<<"PROVINCIA" << (char)175 <<" "<< clientes[cliente_id].direccion.PROVINCIA << RESET << endl;
+	cout << "\t\t\t\t\t\t" << GRAY << (char)186; estetica(7, ' '); cout <<LGREEN<<"NUMERO DE CELULAR" << (char)175 <<" " << clientes[cliente_id].CELULAR << RESET << endl;
+	cout << "\t\t\t\t\t\t" << GRAY<<(char)186; estetica(7, ' '); cout <<CYAN <<"HORA DE INGRESO" << (char)175<<" " << clientes[cliente_id].hora_operacion << endl<<RESET;
+	cout <<"\t\t\t\t\t"<<GRAY; estetica(64, 238); cout << endl;
+	cout <<CYAN <<"\t\t\t\t\t\t\tINVENTARIO ACTUAL DEL CLIENTE " << endl;
+	cout <<BLUE <<"\t\t\t\t\t"; estetica(65, '_'); cout << endl;
 	see_matris(cliente_id);
+	cout << BLUE<<"\t\t\t\t\t"; estetica(65, '_'); cout << endl;
 
 }
