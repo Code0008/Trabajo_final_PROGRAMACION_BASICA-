@@ -11,7 +11,7 @@ using namespace std;
 int verificar_clientes() {
 	int totales_clientes = 0;
 	for (int indice_cliente = 0; indice_cliente < 100; indice_cliente++) {
-		if (clientes[indice_cliente].EDAD > 0) {
+		if (clientes[indice_cliente].informacion_cliente.EDAD > 0) {
 			totales_clientes++;
 		}
 	}
@@ -23,16 +23,16 @@ int verificar_clientes() {
 void ver_info_clinte(int indice_cliente) {
 	cout << "\t\t\t\t" << CYAN; estetica(97, 219); cout << endl;
 	cout << LGREEN << "\t\t\t\t\t[+] " << "ID_CLIENTE: " << clientes[indice_cliente].userID << endl;
-	cout << LGREEN << "\t\t\t\t\t[+] " << "NOMBRE CLIENTE: " << clientes[indice_cliente].NOMBRE_APELLIDO << endl;
-	cout << LGREEN << "\t\t\t\t\t[+] " << "DNI: " << clientes[indice_cliente].DNI << endl;
-	cout << LGREEN << "\t\t\t\t\t[+] " << "EDAD: " << clientes[indice_cliente].EDAD << endl;
-	cout << LGREEN << "\t\t\t\t\t[+] " << "SEXO: " << clientes[indice_cliente].SEXO << endl;
+	cout << LGREEN << "\t\t\t\t\t[+] " << "NOMBRE CLIENTE: " << clientes[indice_cliente].informacion_cliente.NOMBRE_APELLIDO << endl;
+	cout << LGREEN << "\t\t\t\t\t[+] " << "DNI: " << clientes[indice_cliente].informacion_cliente.DNI << endl;
+	cout << LGREEN << "\t\t\t\t\t[+] " << "EDAD: " << clientes[indice_cliente].informacion_cliente.EDAD << endl;
+	cout << LGREEN << "\t\t\t\t\t[+] " << "SEXO: " << clientes[indice_cliente].informacion_cliente.SEXO << endl;
 	cout << LGREEN << "\t\t\t\t\t[+] " << "PROVINCIA: " << clientes[indice_cliente].direccion.PROVINCIA << endl;
 	cout << LGREEN << "\t\t\t\t\t[+] " << "DISTRITO: " << clientes[indice_cliente].direccion.DISTRITO << endl;
 	cout << LGREEN << "\t\t\t\t\t[+] " << "DIRECCION: " << clientes[indice_cliente].direccion.DIRECCION << endl;
 	cout << LGREEN << "\t\t\t\t\t[+] " << "CASA/APARTAMENTO: " << clientes[indice_cliente].direccion.CASA_DEPARTAMENTO << endl;
-	cout << LGREEN << "\t\t\t\t\t[+] " << "NUMERO TELEFONICO " << clientes[indice_cliente].CELULAR << endl;
-	cout << LGREEN << "\t\t\t\t\t[+] " << "correo: " << clientes[indice_cliente].correo_cliente.correo_contacto << endl;
+	cout << LGREEN << "\t\t\t\t\t[+] " << "NUMERO TELEFONICO " << clientes[indice_cliente].contacto.CELULAR << endl;
+	cout << LGREEN << "\t\t\t\t\t[+] " << "correo: " << clientes[indice_cliente].contacto.correo_contacto << endl;
 	cout << LGREEN << "\t\t\t\t\t[+] " << "hora ingreso: " << clientes[indice_cliente].hora_operacion << endl;
 	if (clientes[indice_cliente].tiene_sancion) {
 		cout << "\t\t\t\t\t[+]TIEMPO SANCION: " << clientes[indice_cliente].tiempo_sancion << endl;
@@ -55,7 +55,7 @@ void modificar_atributos_clientes() {
 		}
 		if (verif_entero(nuevo_atributo)&& stoi(nuevo_atributo) <= verificar_clientes()  ) {
 			cliente_id = stoi(nuevo_atributo);
-			if (clientes[stoi(nuevo_atributo)].EDAD == 0) {
+			if (clientes[stoi(nuevo_atributo)].informacion_cliente.EDAD == 0) {
 				cout << RED << "\t\t\t\t\t[!]" << RESET << ORANGE << "EL CLIENTE NO EXISTE\n" << RESET;
 			}
 			else {
@@ -95,7 +95,7 @@ void modificar_atributos_clientes() {
 						cout << RED << "\t\t\t\t\t[!!]" << ORANGE << " ESTA SEGURO??? Y/N " << endl;
 						sel = _getch(); sel = toupper(sel);
 						if (sel == 'Y') {
-							clientes[cliente_id].NOMBRE_APELLIDO = nuevo_atributo;
+							clientes[cliente_id].informacion_cliente.NOMBRE_APELLIDO = nuevo_atributo;
 							break;
 						}
 						else if (sel == 'N') {
@@ -114,7 +114,7 @@ void modificar_atributos_clientes() {
 					cout << RED << "\n\t\t\t\t\t[!!]" << ORANGE << " ESTA SEGURO??? Y/N " << endl;
 					sel = _getch(); sel = toupper(sel);
 					if (sel == 'Y') {
-						clientes[cliente_id].EDAD = stoi(nuevo_atributo);
+						clientes[cliente_id].informacion_cliente.EDAD = stoi(nuevo_atributo);
 						break;
 					}
 					else if (sel == 'N') {
@@ -134,7 +134,7 @@ void modificar_atributos_clientes() {
 					cout << RED << "\n\t\t\t\t\t[!!]" << ORANGE << " ESTA SEGURO??? Y/N ";
 					sel = _getch(); sel = toupper(sel);
 					if (sel == 'Y') {
-						clientes[cliente_id].DNI = nuevo_atributo;
+						clientes[cliente_id].informacion_cliente.DNI = nuevo_atributo;
 						break;
 					}
 					else if (sel == 'N') {
@@ -188,7 +188,7 @@ void modificar_atributos_clientes() {
 					sel = _getch(); sel = toupper(sel);
 					if (sel == 'Y') {
 						if (verif_telefono(nuevo_atributo) == false) { nuevo_atributo = " "; cout << RED << "\n\t\t\t\t[!]" << RESET << ORANGE << " Ingreso de forma erronea el numero telefnoico\n" << RESET; }
-						else { clientes[cliente_id].CELULAR = nuevo_atributo; break; }
+						else { clientes[cliente_id].contacto.CELULAR = nuevo_atributo; break; }
 					}
 					else if (sel =='N') {
 						continue;
@@ -208,7 +208,7 @@ void modificar_atributos_clientes() {
 					cout << RED << "\n\t\t\t\t\t[!!]" << ORANGE << " ESTA SEGURO??? Y/N ";
 					sel = _getch(); sel = toupper(sel);
 					if (sel == 'Y') {
-						if (verif_correo(nuevo_atributo)) { clientes[cliente_id].correo_cliente.correo_contacto = nuevo_atributo;  break; }
+						if (verif_correo(nuevo_atributo)) { clientes[cliente_id].contacto.correo_contacto = nuevo_atributo;  break; }
 						else {
 							nuevo_atributo = " "; cout << RED << "\n\t\t\t\t[!]" << RESET << ORANGE << " Ingreso de forma erronea su correo\n" << RESET;
 							break;
