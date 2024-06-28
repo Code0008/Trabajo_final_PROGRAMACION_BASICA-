@@ -121,13 +121,13 @@ extern void obtener_informacion_usuario(int id_usuario) {
 	clientes[id_usuario].userID = id_usuario;
 	cout << RED << "\n\t\t\t\t[!]" << RESET << ORANGE << " ECUERDE PUEDE EDITAR LA INFORMACION DEJANDO UN MENSAJE A LOS ADMINISTRADORES\n" << RESET;
 	while (true) {
-		cout << LGREEN << "\t\t\t\t\t[!]" << RESET << CYAN << "Ingrese su nombre o nombre de usuario " << RESET; getline(cin, clientes[id_usuario].NOMBRE_APELLIDO);
-		if (verif_string(clientes[id_usuario].NOMBRE_APELLIDO)) { cout << RED << "\t[!]" << RESET << ORANGE << "INGRESE BIEN EL NOMBRE\n" << RESET; }
+		cout << LGREEN << "\t\t\t\t\t[!]" << RESET << CYAN << "Ingrese su nombre o nombre de usuario " << RESET; getline(cin, clientes[id_usuario].informacion_cliente.NOMBRE_APELLIDO);
+		if (verif_string(clientes[id_usuario].informacion_cliente.NOMBRE_APELLIDO)) { cout << RED << "\t[!]" << RESET << ORANGE << "INGRESE BIEN EL NOMBRE\n" << RESET; }
 		else { break; }
 	}
 	while (true) {
 		cout << LGREEN << "\t\t\t\t\t[!]" << RESET << CYAN << "Ingrese su edad: " << RESET; cin >> ingreso_jugar;
-		if (verif_entero(ingreso_jugar)) { clientes[id_usuario].EDAD = stoi(ingreso_jugar); break; }
+		if (verif_entero(ingreso_jugar)) { clientes[id_usuario].informacion_cliente.EDAD = stoi(ingreso_jugar); break; }
 		else { cout << RED << "\t\t\t\t[!]" << RESET << ORANGE << " Ingrese bien su edad!\n" << RESET; }
 	}
 	cin.ignore();
@@ -141,7 +141,7 @@ extern void obtener_informacion_usuario(int id_usuario) {
 	}
 	switch (seleccione)
 	{
-	case '1': clientes[id_usuario].SEXO = 'M'; break; case '2': clientes[id_usuario].SEXO = 'F'; break; case '3': clientes[id_usuario].SEXO = 'N'; break; default:break;
+	case '1': clientes[id_usuario].informacion_cliente.SEXO = 'M'; break; case '2': clientes[id_usuario].informacion_cliente.SEXO = 'F'; break; case '3': clientes[id_usuario].informacion_cliente.SEXO = 'N'; break; default:break;
 	}
 	cout << endl;
 	while (true) {
@@ -178,7 +178,7 @@ extern void obtener_informacion_usuario(int id_usuario) {
 	while (true) {
 		cout << LGREEN << "\t\t\t\t\t[!]" << RESET << CYAN << "Ingrese su numero telefonico: " << RESET;  cin >> ingreso_jugar;
 		if (verif_telefono(ingreso_jugar) == false) { ingreso_jugar = " "; cout << RED << "\n\t\t\t\t[!]" << RESET << ORANGE << " Ingreso de forma erronea el numero telefnoico\n" << RESET; }
-		else { clientes[id_usuario].CELULAR = ingreso_jugar; break; }
+		else { clientes[id_usuario].contacto.CELULAR = ingreso_jugar; break; }
 	}
 	
 }
