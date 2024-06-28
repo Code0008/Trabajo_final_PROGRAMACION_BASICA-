@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 #include <iostream>
 #include <stdio.h>
 #include "FUNCIONALIDADES.h"
@@ -133,11 +133,11 @@ extern  void see_matris(int cliente_id = 0) {
 extern void obtener_informacion_prestamo(int cliente_id = 0) {
 	
 	string var_to_game;
-	if (clientes[cliente_id].DNI == "void") {
+	if (clientes[cliente_id].informacion_cliente.DNI == "void") {
 		while (true) {
 			cout << LGREEN << "\t\t\t\t[!]" << RESET << CYAN << " INGRESE SU DNI: " << RESET; getline(cin, var_to_game);
 			if (verif_dni(var_to_game)) {
-				clientes[cliente_id].DNI = var_to_game; break;
+				clientes[cliente_id].informacion_cliente.DNI = var_to_game; break;
 			}
 			else { cout << RED << "\t\t\t\t[!]" << RESET << ORANGE << " Ingrese bien su DNI!\n" << RESET; }
 		}
@@ -163,15 +163,15 @@ static void boleta_prestamo(int cliente_id = 0) {
 	cout << "\t\t\t\t\t\t\t\t" << LGREEN << "BOLETA FINAL DEL USUARIO" << RESET << endl;
 	cout << "\t\t\t\t\t"; estetica(65, '_'); cout << endl;
 	cout << "\t\t\t\t\t\t" <<(char)186; estetica(7, ' '); cout <<CYAN<<"ID USUARIO" << (char)175 <<" " << clientes[cliente_id].userID << RESET<<endl;
-	cout << "\t\t\t\t\t\t" << GRAY << (char)186; estetica(7, ' '); cout <<LGREEN<<"DNI" << (char)175 << " " << clientes[cliente_id].DNI << RESET << endl;
-	cout << "\t\t\t\t\t\t" << GRAY << (char)186; estetica(7, ' '); cout <<LGREEN<<"NOMBRE" << (char)175 <<" " << clientes[cliente_id].NOMBRE_APELLIDO << RESET << endl;
-	cout << "\t\t\t\t\t\t" << GRAY << (char)186; estetica(7, ' '); cout <<LGREEN<<"EDAD" <<(char)175 << " "<<clientes[cliente_id].EDAD << RESET << endl;
-	cout << "\t\t\t\t\t\t" << GRAY << (char)186; estetica(7, ' '); cout <<LGREEN<<"SEXO" << (char)175 <<" "<< clientes[cliente_id].SEXO << RESET << endl;
+	cout << "\t\t\t\t\t\t" << GRAY << (char)186; estetica(7, ' '); cout <<LGREEN<<"DNI" << (char)175 << " " << clientes[cliente_id].informacion_cliente.DNI << RESET << endl;
+	cout << "\t\t\t\t\t\t" << GRAY << (char)186; estetica(7, ' '); cout <<LGREEN<<"NOMBRE" << (char)175 <<" " << clientes[cliente_id].informacion_cliente.NOMBRE_APELLIDO << RESET << endl;
+	cout << "\t\t\t\t\t\t" << GRAY << (char)186; estetica(7, ' '); cout <<LGREEN<<"EDAD" <<(char)175 << " "<<clientes[cliente_id].informacion_cliente.EDAD << RESET << endl;
+	cout << "\t\t\t\t\t\t" << GRAY << (char)186; estetica(7, ' '); cout <<LGREEN<<"SEXO" << (char)175 <<" "<< clientes[cliente_id].informacion_cliente.SEXO<< RESET << endl;
 	cout << "\t\t\t\t\t\t" << GRAY << (char)186; estetica(7, ' '); cout <<LGREEN <<"TIPO DOMICILIO" << (char)175 <<" " << clientes[cliente_id].direccion.CASA_DEPARTAMENTO << RESET << endl;
 	cout << "\t\t\t\t\t\t" << GRAY << (char)186; estetica(7, ' '); cout << LGREEN<<"DIRECCION" << (char)175 << " " << clientes[cliente_id].direccion.DIRECCION << RESET << endl;
 	cout << "\t\t\t\t\t\t" << GRAY << (char)186; estetica(7, ' '); cout << LGREEN<<"DISTRITO" << (char)175 <<" " << clientes[cliente_id].direccion.DISTRITO << RESET << endl;
 	cout << "\t\t\t\t\t\t" << GRAY << (char)186; estetica(7, ' '); cout <<LGREEN<<"PROVINCIA" << (char)175 <<" "<< clientes[cliente_id].direccion.PROVINCIA << RESET << endl;
-	cout << "\t\t\t\t\t\t" << GRAY << (char)186; estetica(7, ' '); cout <<LGREEN<<"NUMERO DE CELULAR" << (char)175 <<" " << clientes[cliente_id].CELULAR << RESET << endl;
+	cout << "\t\t\t\t\t\t" << GRAY << (char)186; estetica(7, ' '); cout <<LGREEN<<"NUMERO DE CELULAR" << (char)175 <<" " << clientes[cliente_id].contacto.CELULAR << RESET << endl;
 	cout << "\t\t\t\t\t\t" << GRAY<<(char)186; estetica(7, ' '); cout <<CYAN <<"HORA DE INGRESO" << (char)175<<" " << clientes[cliente_id].hora_operacion << endl<<RESET;
 	cout <<"\t\t\t\t\t"<<GRAY; estetica(64, 238); cout << endl;
 	cout <<CYAN <<"\t\t\t\t\t\t\tINVENTARIO ACTUAL DEL CLIENTE " << endl;
