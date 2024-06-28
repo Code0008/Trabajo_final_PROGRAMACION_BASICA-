@@ -1,8 +1,4 @@
 #pragma once
-#include <stdio.h>
-#include <conio.h>
-#include "Funcionalidad_reporte_grafico_de_barras.h"
-
 using namespace std;
 
 
