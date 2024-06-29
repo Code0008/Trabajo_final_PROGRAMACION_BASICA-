@@ -1,5 +1,5 @@
 #pragma once
-#include <iostream>
+#include "cabecera_principales.h"
 #include "FUNCIONALIDADES.h"
 #include "COLORAMA.h"
 using namespace std;
