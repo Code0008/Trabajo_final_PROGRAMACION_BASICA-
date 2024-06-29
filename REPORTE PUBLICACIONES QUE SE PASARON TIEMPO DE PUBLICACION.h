@@ -1,7 +1,7 @@
-#include <iostream>
 #pragma once
-#include <ctime>
 #include "FUNCIONALIDADES.h"
+#include "cabecera_principales.h"
+
 using namespace std;
 
 int** mak_data() {
