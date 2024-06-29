@@ -1,5 +1,6 @@
 #pragma once
-#include <iostream>
+#include "cabecera_principales.h"
+
 using namespace std;
 
 
@@ -7,7 +8,7 @@ struct LIBRO {
 	int codigo_libro;
 	char tipo_libro;
 	string titutlo_libro;
-	bool prestado;
+	bool prestado=false;
 	float estrellas;
 };
 
@@ -21,25 +22,19 @@ struct almacenamiento_matrices {
 	string** almacenamiento = new string * [100];
 };
 
-struct informacion_contacto {
+struct correo {
 	string correo_contacto = "no presenta";
-	string CELULAR = "void";
-};
-
-struct informacion_basica {
-
-	string DNI = "void";
-	string NOMBRE_APELLIDO;
-	int EDAD = 0;
-	char SEXO = 0;
-
 };
 struct CLIENTE {
 	int userID = 0;
-	informacion_basica informacion_cliente;
+	string DNI = "void";
+	string NOMBRE_APELLIDO;
+	int EDAD=0;
+	char SEXO=0;
 	direccion_usuario direccion;
-	informacion_contacto contacto;
+	string CELULAR = "void";
 	string hora_operacion = "void";
+	correo correo_cliente;
 	string** libros_tratados = new string*[100]; //inventario
 	almacenamiento_matrices log_de_cliente;
 	bool tiene_sancion=false;
@@ -57,11 +52,12 @@ struct USUARIO {
 	string nombre_adminsitrador;
 	string password;
 	string hora_acceso;
-	informacion_contacto contacto;
+	correo correo_usuario;
 	bool see_reportes = false;
 	bool adm_users = false;
 	almacenamiento_matrices mensajes_usuario;
 	almacenamiento_matrices log_usuario;
+	direccion_usuario direccion_administrativo;
 	/*
 	Ver reportes | Desbloquear/Bloquear usuarios |
 	|     V/F    | V/F							 |
@@ -78,9 +74,12 @@ struct COMENTARIO {
 	string comentario;
 	string tiempo;
 };
+
+
+
 extern USUARIO usuarios[2] = {
-	{"EnzoFavito", "Ufrjqf", "void", "enzofavito@biblio.com", "967180429",true, true},
-	{"RalphSito", "Xmfnijq","void", "ralphxshaiel@teamoshaiel.com", "967180429",true, false}
+	{"EnzoFavito", "Ufrjqf", "void", "enzofavito@biblio.com", true, true},
+	{"RalphSito", "Xmfnijq","void", "ralphxshaiel@teamoshaiel.com", true, false}
 };
 LIBRO* inventario = new LIBRO[100];
 COMENTARIO* comentarios = new COMENTARIO[100];
