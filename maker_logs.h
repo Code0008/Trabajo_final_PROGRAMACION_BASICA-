@@ -1,5 +1,5 @@
 #pragma once
-#include <iostream>
+#include "cabecera_principales.h"
 #include "STRUCTURAS.h"
 #include "COLORAMA.h"
 #include "administradores.h"
