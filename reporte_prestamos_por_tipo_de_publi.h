@@ -1,10 +1,6 @@
 #pragma once
-#include <iostream>
-#include <string>
-#include <stdio.h>
-#include <conio.h>
-#include <time.h>
-#include <iomanip>
+#include "cabecera_principales.h"
+
 using namespace std;
 
 extern int ** make_data_reporte_porcentaje_publicacion() {
