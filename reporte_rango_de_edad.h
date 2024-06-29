@@ -1,6 +1,5 @@
-#include <iostream>
 #pragma once
-#include <ctime>
+#include "cabecera_principales.h"
 #include "FUNCIONALIDADES.h"
 
 
@@ -22,7 +21,7 @@ int** make_data() {
 		matriz[i][3] = rand() % 10000 + (16666 - 10000);
 	}
 	/*				18-30  30-60 60-99
-	| año		|		  |		|		|
+	| aÃ±o		|		  |		|		|
 
 	*/
 
@@ -44,7 +43,7 @@ void see_data(int** data, int year) {
 	cout << " \t\t\t\t\t\t\t\t\t";
 	cout << ROSE <<"18-30\t30-60\t60-mas"<< RESET<<endl;
 	cout << " \t\t\t\t\t\t\t\t\t";
-	cout << LGREEN << "\tAÑO " <<ROSE << year<<RESET << endl;
+	cout << LGREEN << "\tAÃ‘O " <<ROSE << year<<RESET << endl;
 	cout << " \t\t\t\t\t\t\t\t\t";
 	cout << LGREEN;
 	for (int i = 1; i < 4; i++) {
