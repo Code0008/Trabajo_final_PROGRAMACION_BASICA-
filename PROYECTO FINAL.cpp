@@ -1,14 +1,12 @@
-#include <iostream>
-#include <stdio.h>
-#include <conio.h>
 #include "INFO_DE_MENUS.h"
 #include "FUNCIONALIDADES.h"
 #include "funcionalidades_prestamo.h"
 #include "funcionalidades_devolucion.h"
 #include "administradores.h"
-#include <string>
 //#include "TESTS.h"
 #include "COLORAMA.h"
+#include "cabecera_principales.h"
+
 using namespace std;
 int main() {
 	RESET;
@@ -89,13 +87,3 @@ int main() {
 	return 0;
 }
 
-
-/*int main() {
-
-	generar_matris_barras();
-	generar_datos();
-	see_first_semes();
-	see_Data();
-}*/
-
-// CODIGO PENDEJO DE PENDEJOS ECHO PARA PENDEJOS
