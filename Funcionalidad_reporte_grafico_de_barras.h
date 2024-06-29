@@ -1,9 +1,7 @@
 #pragma once
-#include <iostream>
-#include <string>
-#include <iomanip>
 #include "COLORAMA.h"
 #include "FUNCIONALIDADES.h"
+
 using namespace std;
 
 
