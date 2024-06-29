@@ -1,19 +1,14 @@
 #pragma once
-#include <iostream>
-#include <string>
-#include <stdio.h>
-#include <conio.h>
-#include <time.h>
 #include "STRUCTURAS.h"
 #include "COLORAMA.h"
 #include "FUNCIONALIDADES.h"
 #include "Funcionalidad_reporte_grafico_de_barras.h"
 #include "reporte_prestamos_por_tipo_de_publi.h"
-#include <string>
 #include "maker_logs.h"
 #include "REPORTE PUBLICACIONES QUE SE PASARON TIEMPO DE PUBLICACION.h"
 #include "reporte_rango_de_edad.h"
 #include "administrar_usuarios.h"
+#include "cabecera_principales.h"
 using namespace std;
 
 
@@ -133,7 +128,7 @@ static void ingresar_a_reportes(int indice_usuario) {
                     cout << LGREEN << "\t\t\t\t\t[!]" << CYAN << " GRAFICO SEGUNDO SEMESTRE " << ROSE << "[ 2 ]" << endl;
                     cout << YELLOW << "\t\t\t\t\t--> "; seleccion = _getch(); cout << endl; 
                     if (seleccion == '1' || seleccion == '2') {
-                        cout << LGREEN << "\t\t\t\t\t[!]" << CYAN << "ELIGE UN AÑO ENTRE " << ROSE << "(2017-2024) :" <<RESET; getline(cin,var_game); 
+                        cout << LGREEN << "\t\t\t\t\t[!]" << CYAN << "ELIGE UN AÃ‘O ENTRE " << ROSE << "(2017-2024) :" <<RESET; getline(cin,var_game); 
                         if (verif_entero(var_game) && stoi(var_game)>=2017 && stoi(var_game)<=2024) {
                             system("cls");
                             cout << endl << endl << endl;
@@ -149,11 +144,11 @@ static void ingresar_a_reportes(int indice_usuario) {
             case 'e':
                 cout << endl;
                 cout << "\t\t\t\t" << MAGENTA; estetica(97, 219); cout << endl;
-                cout << LGREEN << "\t\t\t\t\t[!]" << CYAN << "SE MOSTRARAN LOS CODIGOS DE LAS PUBLICACIONES FUERA DE TIEMPO" << ROSE << " AÑO ACTUAL";;
+                cout << LGREEN << "\t\t\t\t\t[!]" << CYAN << "SE MOSTRARAN LOS CODIGOS DE LAS PUBLICACIONES FUERA DE TIEMPO" << ROSE << " AÃ‘O ACTUAL";;
 
                 principal_reporte_no_devueltos(); break;
             case 'l':
-                cout << LGREEN << "\t\t\t\t\t[!]" << CYAN << "ELIGE UN AÑO ENTRE " << ROSE << "(2017-2024) :" << RESET; getline(cin, var_game);
+                cout << LGREEN << "\t\t\t\t\t[!]" << CYAN << "ELIGE UN AÃ‘O ENTRE " << ROSE << "(2017-2024) :" << RESET; getline(cin, var_game);
                 if (verif_entero(var_game) && stoi(var_game) >= 2017 && stoi(var_game) <= 2024) {
                     system("cls");
                     cout << endl << endl << endl;
@@ -201,7 +196,7 @@ extern void informacion_administrador() {
             }
             else {
                 intentos++;
-                cout << RED << "\t\t\t\t\t\t[!] " << RESET << ORANGE << " CONTRASEÑA MAL INGRESADA!" << RESET << endl;
+                cout << RED << "\t\t\t\t\t\t[!] " << RESET << ORANGE << " CONTRASEÃ‘A MAL INGRESADA!" << RESET << endl;
                 continue;
             }
         }
